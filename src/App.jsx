@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MLBackground from './components/MLBackground';
+import NeuralBackground from './components/NeuralBackground';
 import Sidebar from './components/Sidebar';
 import Navigation from './components/Navigation';
 import About from './components/About';
@@ -28,7 +28,7 @@ function App() {
 
     return (
         <div className="App">
-            <MLBackground />
+            <NeuralBackground />
             <Sidebar />
             <main className="main-content">
                 <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />

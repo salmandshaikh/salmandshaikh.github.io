@@ -7003,123 +7003,69 @@ var m = reactDomExports;
   client.createRoot = m.createRoot;
   client.hydrateRoot = m.hydrateRoot;
 }
-const MLBackground = () => {
+const NeuralBackground = () => {
   const canvasRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let animationFrameId;
     let particles = [];
-    let nodes = [];
-    let time = 0;
-    const resizeCanvas = () => {
+    const init = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initNodes();
+      createParticles();
     };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.4 + 0.2;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
-      }
-      draw() {
-        ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-    class Node {
-      constructor(x2, y2) {
-        this.baseX = x2;
-        this.baseY = y2;
-        this.x = x2;
-        this.y = y2;
-        this.size = 2;
-        this.offset = Math.random() * Math.PI * 2;
-      }
-      update(time2) {
-        this.x = this.baseX + Math.sin(time2 * 1e-3 + this.offset) * 10;
-        this.y = this.baseY + Math.cos(time2 * 1e-3 + this.offset) * 10;
-      }
-      draw() {
-        ctx.fillStyle = "rgba(59, 130, 246, 0.15)";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-    const initNodes = () => {
-      nodes = [];
-      const spacing = 120;
-      for (let x2 = spacing; x2 < canvas.width; x2 += spacing) {
-        for (let y2 = spacing; y2 < canvas.height; y2 += spacing) {
-          nodes.push(new Node(x2, y2));
-        }
+    const createParticles = () => {
+      particles = [];
+      const numberOfParticles = Math.floor(canvas.width * canvas.height / 15e3);
+      for (let i = 0; i < numberOfParticles; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          // Slow movement
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 1.5 + 0.5
+        });
       }
     };
-    for (let i = 0; i < 60; i++) {
-      particles.push(new Particle());
-    }
-    initNodes();
-    const drawConnections = () => {
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(59, 130, 246, 0.5)";
+      ctx.strokeStyle = "rgba(59, 130, 246, 0.15)";
+      particles.forEach((particle, i) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
           const distance2 = Math.sqrt(dx * dx + dy * dy);
-          if (distance2 < 150) {
-            const opacity = 0.1 * (1 - distance2 / 150);
-            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-            ctx.lineWidth = 0.5;
+          if (distance2 < 100) {
             ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - distance2 / 100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
           }
         }
-      }
-    };
-    const animate = () => {
-      time += 1;
-      ctx.fillStyle = "#0d1117";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      drawConnections();
-      nodes.forEach((node) => {
-        node.update(time);
-        node.draw();
       });
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw();
-      });
-      animationFrameId = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(draw);
     };
-    animate();
+    window.addEventListener("resize", init);
+    init();
+    draw();
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", init);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "ml-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("canvas", { ref: canvasRef, className: "ml-canvas" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "animated-gradient" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid-overlay" })
-  ] });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("canvas", { ref: canvasRef, className: "neural-background" });
 };
 const MotionConfigContext = reactExports.createContext({
   transformPagePoint: (p2) => p2,
@@ -14195,7 +14141,7 @@ function App() {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "App", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(MLBackground, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(NeuralBackground, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "main-content", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, { activeSection, setActiveSection }),
@@ -14207,4 +14153,4 @@ console.log("Portfolio v1.1 loaded");
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
-//# sourceMappingURL=index-dvlcjrRm.js.map
+//# sourceMappingURL=index-DdEnGdQ_.js.map
