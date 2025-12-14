@@ -1,22 +1,26 @@
 import { motion } from 'framer-motion';
 import './Sidebar.css';
+import profilePhoto from '../assets/profile-photo.jpg';
+import emailIcon from '../assets/icon-email.svg';
+import phoneIcon from '../assets/icon-phone.svg';
+import locationIcon from '../assets/icon-location.svg';
 
 const Sidebar = () => {
     const contactInfo = [
         {
-            icon: '📧',
+            icon: emailIcon,
             title: 'Email',
             value: 'salmandshaikh1907@gmail.com',
             link: 'mailto:salmandshaikh1907@gmail.com'
         },
         {
-            icon: '📱',
+            icon: phoneIcon,
             title: 'Phone',
             value: '+1 (857) 405-9046',
             link: 'tel:+18574059046'
         },
         {
-            icon: '📍',
+            icon: locationIcon,
             title: 'Location',
             value: 'San Jose, California, USA',
             link: '#'
@@ -50,7 +54,7 @@ const Sidebar = () => {
                     transition={{ type: 'spring', stiffness: 300 }}
                 >
                     <div className="avatar-glow" />
-                    <div className="avatar-placeholder">SS</div>
+                    <img src={profilePhoto} alt="Salman Shaikh" className="avatar-image" />
                 </motion.div>
 
                 <motion.div
@@ -75,7 +79,9 @@ const Sidebar = () => {
                             transition={{ delay: 0.3 + index * 0.1 }}
                             whileHover={{ x: 5, backgroundColor: 'rgba(139, 92, 246, 0.1)' }}
                         >
-                            <span className="contact-icon">{contact.icon}</span>
+                            <div className="contact-icon-wrapper">
+                                <img src={contact.icon} alt={contact.title} className="contact-icon" />
+                            </div>
                             <div className="contact-info">
                                 <p className="contact-title">{contact.title}</p>
                                 <a href={contact.link} className="contact-link">

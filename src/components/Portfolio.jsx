@@ -8,7 +8,7 @@ import crawlerImg from '../assets/project-crawler.png';
 import movieImg from '../assets/project-movie.jpg';
 import genaiImg from '../assets/project-genai.jpg';
 import newsImg from '../assets/project-news.jpg';
-import researchImg from '../assets/research-logo.svg';
+import researchImg from '../assets/project-research.png';
 
 const Portfolio = () => {
     const [filter, setFilter] = useState('All');
