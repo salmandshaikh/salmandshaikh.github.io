@@ -13844,6 +13844,12 @@ const Resume = () => {
     }
   ) });
 };
+const financeImg = "/assets/project-finance-Blmn2DS-.png";
+const crawlerImg = "/assets/project-crawler-DN4Zs5de.png";
+const movieImg = "/assets/project-movie-CtstFoiZ.jpg";
+const genaiImg = "/assets/project-genai-C4FZj5Q4.jpg";
+const newsImg = "/assets/project-news-8iG6Z8Bx.jpg";
+const researchImg = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20fill='none'%3e%3crect%20width='100'%20height='100'%20rx='20'%20fill='%234b5563'/%3e%3cpath%20d='M30%2030H70V70H30V30Z'%20stroke='white'%20stroke-width='4'/%3e%3cpath%20d='M35%2040H65M35%2050H65M35%2060H55'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'/%3e%3c/svg%3e";
 const Portfolio = () => {
   const [filter2, setFilter] = reactExports.useState("All");
   const projects = [
@@ -13851,6 +13857,7 @@ const Portfolio = () => {
       title: "Daily AI News",
       category: "Generative AI",
       description: "AI-powered daily news aggregator with automated podcast generation featuring two AI journalists",
+      image: newsImg,
       github: "https://github.com/salmandshaikh/ai-daily-news",
       live: "https://salmandshaikh.github.io/ai-daily-news",
       featured: true,
@@ -13860,6 +13867,7 @@ const Portfolio = () => {
       title: "Modeling Student Behavior in Complex Learning Environments",
       category: "Data Science",
       description: "Research paper on machine learning models for educational analytics",
+      image: researchImg,
       github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
       tags: ["Research", "ML", "Education"]
     },
@@ -13867,6 +13875,7 @@ const Portfolio = () => {
       title: "Movie Recommendation MLOps",
       category: "Data Science",
       description: "End-to-end ML pipeline for personalized movie recommendations",
+      image: movieImg,
       github: "https://github.com/Salmanshaikh3223/Movie-Recommendation-System",
       tags: ["MLOps", "Recommendation", "Python"]
     },
@@ -13874,6 +13883,7 @@ const Portfolio = () => {
       title: "GenAI Bot NLTK Toolkit",
       category: "Generative AI",
       description: "Natural language processing chatbot using NLTK and generative AI",
+      image: genaiImg,
       github: "https://github.com/salmandshaikh",
       tags: ["NLP", "NLTK", "Chatbot"]
     },
@@ -13881,6 +13891,7 @@ const Portfolio = () => {
       title: "Web Crawler",
       category: "Data Science",
       description: "Intelligent web scraping and data extraction system",
+      image: crawlerImg,
       github: "https://github.com/salmandshaikh/Web-Crawler",
       tags: ["Python", "Scraping", "Data"]
     },
@@ -13888,6 +13899,7 @@ const Portfolio = () => {
       title: "Financial Market Forecasting",
       category: "Data Science",
       description: "Time series forecasting for financial markets using deep learning",
+      image: financeImg,
       github: "https://github.com/salmandshaikh",
       tags: ["Time Series", "LSTM", "Finance"]
     }
@@ -13934,6 +13946,10 @@ const Portfolio = () => {
             transition: { delay: index * 0.1, duration: 0.4 },
             children: [
               project.featured && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "featured-badge", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "⭐ Featured" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-image-container", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: project.image, alt: project.title, className: "project-image" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "project-overlay" })
+              ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-content", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "project-title", children: project.title }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "project-category", children: project.category }),
@@ -14153,4 +14169,4 @@ console.log("Portfolio v1.1 loaded");
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
-//# sourceMappingURL=index-DdEnGdQ_.js.map
+//# sourceMappingURL=index-j7FM8LT4.js.map

@@ -2,6 +2,14 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import './Portfolio.css';
 
+// Import images
+import financeImg from '../assets/project-finance.png';
+import crawlerImg from '../assets/project-crawler.png';
+import movieImg from '../assets/project-movie.jpg';
+import genaiImg from '../assets/project-genai.jpg';
+import newsImg from '../assets/project-news.jpg';
+import researchImg from '../assets/research-logo.svg';
+
 const Portfolio = () => {
     const [filter, setFilter] = useState('All');
 
@@ -10,6 +18,7 @@ const Portfolio = () => {
             title: "Daily AI News",
             category: "Generative AI",
             description: "AI-powered daily news aggregator with automated podcast generation featuring two AI journalists",
+            image: newsImg,
             github: "https://github.com/salmandshaikh/ai-daily-news",
             live: "https://salmandshaikh.github.io/ai-daily-news",
             featured: true,
@@ -19,6 +28,7 @@ const Portfolio = () => {
             title: "Modeling Student Behavior in Complex Learning Environments",
             category: "Data Science",
             description: "Research paper on machine learning models for educational analytics",
+            image: researchImg,
             github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
             tags: ["Research", "ML", "Education"]
         },
@@ -26,6 +36,7 @@ const Portfolio = () => {
             title: "Movie Recommendation MLOps",
             category: "Data Science",
             description: "End-to-end ML pipeline for personalized movie recommendations",
+            image: movieImg,
             github: "https://github.com/Salmanshaikh3223/Movie-Recommendation-System",
             tags: ["MLOps", "Recommendation", "Python"]
         },
@@ -33,6 +44,7 @@ const Portfolio = () => {
             title: "GenAI Bot NLTK Toolkit",
             category: "Generative AI",
             description: "Natural language processing chatbot using NLTK and generative AI",
+            image: genaiImg,
             github: "https://github.com/salmandshaikh",
             tags: ["NLP", "NLTK", "Chatbot"]
         },
@@ -40,6 +52,7 @@ const Portfolio = () => {
             title: "Web Crawler",
             category: "Data Science",
             description: "Intelligent web scraping and data extraction system",
+            image: crawlerImg,
             github: "https://github.com/salmandshaikh/Web-Crawler",
             tags: ["Python", "Scraping", "Data"]
         },
@@ -47,6 +60,7 @@ const Portfolio = () => {
             title: "Financial Market Forecasting",
             category: "Data Science",
             description: "Time series forecasting for financial markets using deep learning",
+            image: financeImg,
             github: "https://github.com/salmandshaikh",
             tags: ["Time Series", "LSTM", "Finance"]
         }
@@ -105,6 +119,11 @@ const Portfolio = () => {
                                     <span>⭐ Featured</span>
                                 </div>
                             )}
+
+                            <div className="project-image-container">
+                                <img src={project.image} alt={project.title} className="project-image" />
+                                <div className="project-overlay"></div>
+                            </div>
 
                             <div className="project-content">
                                 <h3 className="project-title">{project.title}</h3>
