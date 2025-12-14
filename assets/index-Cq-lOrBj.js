@@ -35,6 +35,43 @@
     fetch(link.href, fetchOpts);
   }
 })();
+(function polyfill2() {
+  const relList = document.createElement("link").relList;
+  if (relList && relList.supports && relList.supports("modulepreload")) {
+    return;
+  }
+  for (const link of document.querySelectorAll('link[rel="modulepreload"]')) {
+    processPreload(link);
+  }
+  new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type !== "childList") {
+        continue;
+      }
+      for (const node of mutation.addedNodes) {
+        if (node.tagName === "LINK" && node.rel === "modulepreload")
+          processPreload(node);
+      }
+    }
+  }).observe(document, { childList: true, subtree: true });
+  function getFetchOpts(link) {
+    const fetchOpts = {};
+    if (link.integrity) fetchOpts.integrity = link.integrity;
+    if (link.referrerPolicy) fetchOpts.referrerPolicy = link.referrerPolicy;
+    if (link.crossOrigin === "use-credentials")
+      fetchOpts.credentials = "include";
+    else if (link.crossOrigin === "anonymous") fetchOpts.credentials = "omit";
+    else fetchOpts.credentials = "same-origin";
+    return fetchOpts;
+  }
+  function processPreload(link) {
+    if (link.ep)
+      return;
+    link.ep = true;
+    const fetchOpts = getFetchOpts(link);
+    fetch(link.href, fetchOpts);
+  }
+})();
 function getDefaultExportFromCjs(x2) {
   return x2 && x2.__esModule && Object.prototype.hasOwnProperty.call(x2, "default") ? x2["default"] : x2;
 }
@@ -7323,8 +7360,8 @@ function isSVGComponent(Component) {
      * HTML custom React components.
      */
     typeof Component !== "string" || /**
-     * If it contains a dash, the element is a custom HTML webcomponent.
-     */
+    * If it contains a dash, the element is a custom HTML webcomponent.
+    */
     Component.includes("-")
   ) {
     return false;
@@ -7333,8 +7370,8 @@ function isSVGComponent(Component) {
      * If it's in our list of lowercase SVG tags, it's an SVG component
      */
     lowercaseSVGElements.indexOf(Component) > -1 || /**
-     * If it contains a capital letter, it's an SVG component
-     */
+    * If it contains a capital letter, it's an SVG component
+    */
     /[A-Z]/.test(Component)
   ) {
     return true;
@@ -9716,9 +9753,9 @@ const animateMotionValue = (valueName, value, target, transition = {}) => {
        * optimised animation.
        */
       !transition.isHandoff && value.owner && value.owner.current instanceof HTMLElement && /**
-       * If we're outputting values to onUpdate then we can't use WAAPI as there's
-       * no way to read the value from WAAPI every frame.
-       */
+      * If we're outputting values to onUpdate then we can't use WAAPI as there's
+      * no way to read the value from WAAPI every frame.
+      */
       !value.owner.getProps().onUpdate
     ) {
       const acceleratedAnimation = createAcceleratedAnimation(value, valueName, options);
@@ -14169,4 +14206,4 @@ console.log("Portfolio v1.1 loaded");
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
-//# sourceMappingURL=index-j7FM8LT4.js.map
+//# sourceMappingURL=index-Cq-lOrBj.js.map
