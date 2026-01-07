@@ -13483,27 +13483,523 @@ const preloadedFeatures = {
   ...layout
 };
 const motion = /* @__PURE__ */ createMotionProxy((Component, config) => createDomMotionConfig(Component, config, preloadedFeatures, createDomVisualElement));
-const Sidebar = () => {
-  const contactInfo = [
+const FloatingNav = () => {
+  const [activeSection, setActiveSection] = reactExports.useState("home");
+  const [isVisible, setIsVisible] = reactExports.useState(false);
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "projects", label: "Projects" },
+    { id: "journey", label: "Journey" },
+    { id: "contact", label: "Contact" }
+  ];
+  reactExports.useEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > 200);
+      const sections = navItems.map((item) => document.getElementById(item.id));
+      const scrollPos = window.scrollY + 200;
+      sections.forEach((section, index) => {
+        if (section) {
+          const top = section.offsetTop;
+          const height = section.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(navItems[index].id);
+          }
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  const scrollToSection = (id2) => {
+    var _a;
+    (_a = document.getElementById(id2)) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth" });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    motion.nav,
     {
-      icon: "📧",
-      title: "Email",
-      value: "salmandshaikh1907@gmail.com",
-      link: "mailto:salmandshaikh1907@gmail.com"
+      className: `floating-nav glass ${isVisible ? "visible" : ""}`,
+      initial: { y: -100, opacity: 0 },
+      animate: { y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 },
+      transition: { duration: 0.3 },
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-items", children: navItems.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.button,
+        {
+          className: `nav-item ${activeSection === item.id ? "active" : ""}`,
+          onClick: () => scrollToSection(item.id),
+          whileHover: { scale: 1.05 },
+          whileTap: { scale: 0.95 },
+          children: [
+            item.label,
+            activeSection === item.id && /* @__PURE__ */ jsxRuntimeExports.jsx(
+              motion.div,
+              {
+                className: "active-indicator",
+                layoutId: "activeIndicator",
+                transition: { type: "spring", stiffness: 300, damping: 30 }
+              }
+            )
+          ]
+        },
+        item.id
+      )) })
+    }
+  );
+};
+const Hero = () => {
+  const scrollToProjects = () => {
+    var _a;
+    (_a = document.getElementById("projects")) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth" });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "hero", id: "home", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hero-content", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.div,
+      {
+        className: "hero-text",
+        initial: { opacity: 0, y: 30 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, ease: "easeOut" },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.p,
+            {
+              className: "hero-greeting",
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              transition: { delay: 0.2 },
+              children: "Hi, I'm"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.h1,
+            {
+              className: "hero-name",
+              initial: { opacity: 0, y: 20 },
+              animate: { opacity: 1, y: 0 },
+              transition: { delay: 0.4, duration: 0.8 },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "gradient-text", children: "Salman Shaikh" })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.p,
+            {
+              className: "hero-title",
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              transition: { delay: 0.6 },
+              children: "Data Scientist & ML Engineer"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.p,
+            {
+              className: "hero-subtitle",
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              transition: { delay: 0.8 },
+              children: "Transforming data into intelligent solutions with Machine Learning, NLP, and Generative AI"
+            }
+          )
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.button,
+      {
+        className: "hero-cta moving-border",
+        onClick: scrollToProjects,
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { delay: 1, duration: 0.6 },
+        whileHover: { scale: 1.05 },
+        whileTap: { scale: 0.95 },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "cta-text", children: "View My Projects" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "cta-arrow", children: "→" })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.div,
+      {
+        className: "scroll-indicator",
+        initial: { opacity: 0 },
+        animate: { opacity: 1, y: [0, 10, 0] },
+        transition: {
+          opacity: { delay: 1.5 },
+          y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
+        },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "scroll-mouse", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "scroll-wheel" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Scroll Down" })
+        ]
+      }
+    )
+  ] }) });
+};
+const BentoGrid = () => {
+  const [currentSkill, setCurrentSkill] = reactExports.useState(0);
+  const [emailCopied, setEmailCopied] = reactExports.useState(false);
+  const skills = [
+    { name: "Python", icon: "🐍" },
+    { name: "TensorFlow", icon: "🧠" },
+    { name: "PyTorch", icon: "🔥" },
+    { name: "Machine Learning", icon: "🤖" },
+    { name: "NLP", icon: "💬" },
+    { name: "AWS", icon: "☁️" },
+    { name: "Snowflake", icon: "❄️" },
+    { name: "Power BI", icon: "📊" },
+    { name: "Docker", icon: "🐳" },
+    { name: "LLMs", icon: "✨" }
+  ];
+  reactExports.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSkill((prev) => (prev + 1) % skills.length);
+    }, 2e3);
+    return () => clearInterval(interval);
+  }, [skills.length]);
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("salmandshaikh1907@gmail.com");
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2e3);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "bento-section", id: "about", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      motion.h2,
+      {
+        className: "section-title",
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        children: "About Me"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bento-grid", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          className: "bento-card bento-large glass",
+          initial: { opacity: 0, y: 30 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.5 },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bento-glow" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "bento-title", children: "Personal Statement" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "bento-text", children: "I'm a Data Scientist with 4+ years of experience building intelligent solutions that drive real impact. My expertise spans Machine Learning, NLP, and Generative AI—from developing fraud detection models that saved millions to building LLM-powered chatbots that transformed customer experiences." }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "bento-text", children: "I believe the best AI solutions come from understanding both the technology and the people it serves. That's why I focus on building systems that are not just accurate, but explainable, scalable, and impactful." })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          className: "bento-card bento-medium glass",
+          initial: { opacity: 0, y: 30 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.5, delay: 0.1 },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bento-glow" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "bento-title", children: "Digital DNA" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skill-display", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              motion.div,
+              {
+                className: "skill-item",
+                initial: { opacity: 0, y: 20 },
+                animate: { opacity: 1, y: 0 },
+                exit: { opacity: 0, y: -20 },
+                transition: { duration: 0.5 },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "skill-icon", children: skills[currentSkill].icon }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "skill-name", children: skills[currentSkill].name })
+                ]
+              },
+              currentSkill
+            ) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skill-dots", children: skills.map((_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: `skill-dot ${index === currentSkill ? "active" : ""}`
+              },
+              index
+            )) })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          className: "bento-card bento-small glass",
+          initial: { opacity: 0, y: 30 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.5, delay: 0.2 },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bento-glow" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "bento-title", children: "Life Lately" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "bento-text life-text", children: [
+              "📍 San Jose, CA",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+              "🎓 MS @ Northeastern",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+              "💼 Data Scientist @ Goldman Sachs",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+              "🔬 Building AI that matters"
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          className: "bento-card bento-small bento-interactive glass",
+          initial: { opacity: 0, y: 30 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.5, delay: 0.3 },
+          onClick: handleCopyEmail,
+          whileHover: { scale: 1.02 },
+          whileTap: { scale: 0.98 },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bento-glow" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              motion.div,
+              {
+                className: "email-content",
+                animate: { scale: emailCopied ? [1, 1.1, 1] : 1 },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "email-icon", children: emailCopied ? "✅" : "📧" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "email-text", children: emailCopied ? "Email Copied!" : "Copy My Email" })
+                ]
+              }
+            )
+          ]
+        }
+      )
+    ] })
+  ] });
+};
+const financeImg = "/assets/project-finance-Blmn2DS-.png";
+const crawlerImg = "/assets/project-crawler-DN4Zs5de.png";
+const movieImg = "/assets/project-movie-CtstFoiZ.jpg";
+const genaiImg = "/assets/project-genai-C4FZj5Q4.jpg";
+const newsImg = "/assets/project-news-8iG6Z8Bx.jpg";
+const researchImg = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20fill='none'%3e%3crect%20width='100'%20height='100'%20rx='20'%20fill='%234b5563'/%3e%3cpath%20d='M30%2030H70V70H30V30Z'%20stroke='white'%20stroke-width='4'/%3e%3cpath%20d='M35%2040H65M35%2050H65M35%2060H55'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'/%3e%3c/svg%3e";
+const ProjectsGrid = () => {
+  const projects = [
+    {
+      title: "Daily AI News",
+      description: "AI-powered daily news aggregator with automated podcast generation featuring two AI journalists discussing the latest in AI.",
+      image: newsImg,
+      techStack: ["⚛️", "🐍", "🤖", "⚙️"],
+      techNames: ["React", "Python", "LLM", "GitHub Actions"],
+      github: "https://github.com/salmandshaikh/ai-daily-news",
+      live: "https://salmandshaikh.github.io/ai-daily-news",
+      featured: true
     },
     {
-      icon: "📱",
-      title: "Phone",
-      value: "+1 (857) 405-9046",
-      link: "tel:+18574059046"
+      title: "Movie Recommendation MLOps",
+      description: "End-to-end ML pipeline for personalized movie recommendations with collaborative filtering and content-based approaches.",
+      image: movieImg,
+      techStack: ["🐍", "🔬", "🐳"],
+      techNames: ["Python", "Scikit-learn", "Docker"],
+      github: "https://github.com/Salmanshaikh3223/Movie-Recommendation-System"
     },
     {
-      icon: "📍",
-      title: "Location",
-      value: "San Jose, California, USA",
-      link: "#"
+      title: "GenAI Bot NLTK Toolkit",
+      description: "Natural language processing chatbot powered by NLTK and generative AI for intelligent conversations.",
+      image: genaiImg,
+      techStack: ["🐍", "💬", "🤖"],
+      techNames: ["Python", "NLTK", "GenAI"],
+      github: "https://github.com/salmandshaikh"
+    },
+    {
+      title: "Financial Market Forecasting",
+      description: "Time series forecasting for financial markets using LSTM neural networks and deep learning techniques.",
+      image: financeImg,
+      techStack: ["🐍", "📈", "🧠"],
+      techNames: ["Python", "LSTM", "TensorFlow"],
+      github: "https://github.com/salmandshaikh"
+    },
+    {
+      title: "Web Crawler",
+      description: "Intelligent web scraping system for automated data extraction and analysis at scale.",
+      image: crawlerImg,
+      techStack: ["🐍", "🕷️", "📊"],
+      techNames: ["Python", "BeautifulSoup", "Pandas"],
+      github: "https://github.com/salmandshaikh/Web-Crawler"
+    },
+    {
+      title: "Research: Student Behavior Modeling",
+      description: "Published research on ML models for educational analytics in complex learning environments.",
+      image: researchImg,
+      techStack: ["📄", "🔬", "🎓"],
+      techNames: ["Research", "ML", "Education"],
+      github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46"
     }
   ];
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "projects-section", id: "projects", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      motion.h2,
+      {
+        className: "section-title",
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        children: "Projects"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "projects-grid", children: projects.map((project, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.div,
+      {
+        className: `project-card glass ${project.featured ? "featured" : ""}`,
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { delay: index * 0.1 },
+        whileHover: { y: -5 },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-image-wrapper", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: project.image,
+                alt: project.title,
+                className: "project-image"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "project-overlay" }),
+            project.featured && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "featured-badge", children: "⭐ Featured" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-content", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tech-stack", children: project.techStack.map((icon, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: "tech-icon",
+                title: project.techNames[i],
+                style: { zIndex: project.techStack.length - i },
+                children: icon
+              },
+              i
+            )) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "project-title", children: project.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "project-description", children: project.description }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-links", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                motion.a,
+                {
+                  href: project.github,
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "project-link",
+                  whileHover: { x: 5 },
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "View Project" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "link-arrow", children: "→" })
+                  ]
+                }
+              ),
+              project.live && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                motion.a,
+                {
+                  href: project.live,
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "project-link live",
+                  whileHover: { x: 5 },
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Live Demo" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "link-arrow", children: "→" })
+                  ]
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card-border" })
+        ]
+      },
+      project.title
+    )) })
+  ] });
+};
+const Journey = () => {
+  const experiences = [
+    {
+      type: "work",
+      title: "Data Scientist",
+      organization: "Goldman Sachs Group",
+      period: "Jan 2025 — Present",
+      description: "Developed end-to-end ML pipelines using Python and XGBoost, improving prediction accuracy by 10%. Built a Generative AI-powered financial chatbot with LLaMA 2.0, GPT-3.5, and RAG for real-time insights. Created Power BI dashboards integrated with AWS Redshift.",
+      skills: ["Python", "XGBoost", "LLaMA", "RAG", "AWS"]
+    },
+    {
+      type: "education",
+      title: "MS in Information Systems",
+      organization: "Northeastern University",
+      period: "2023 — 2025",
+      description: "Specializing in Data Science. Focused on machine learning, natural language processing, time series forecasting, and cloud deployment. Applied real-world AI solutions through academic and project-based learning.",
+      skills: ["Data Science", "NLP", "Cloud Computing"]
+    },
+    {
+      type: "work",
+      title: "Data Scientist",
+      organization: "Zensar Technologies",
+      period: "Aug 2022 — July 2023",
+      description: "Built scalable AI tools using Python, SQL, and GCP, improving data quality by 90% and cutting deployment time by 25%. Developed ML models with Spark and GANs for anomaly detection and synthetic data generation.",
+      skills: ["GCP", "Spark", "GANs", "SQL"]
+    },
+    {
+      type: "work",
+      title: "Data Science Consultant",
+      organization: "Zensar Technologies",
+      period: "Aug 2021 — Jul 2022",
+      description: "Deployed ML models using Scikit-learn and transformers, achieving 92% churn prediction accuracy. Enhanced insights with Power BI dashboards and Python-SQL pipelines. Applied GANs and deep learning for pattern recognition.",
+      skills: ["Scikit-learn", "Transformers", "Power BI"]
+    }
+  ];
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "journey-section", id: "journey", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      motion.h2,
+      {
+        className: "section-title",
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        children: "My Journey"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "timeline-container", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "timeline-line" }),
+      experiences.map((item, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          className: `timeline-item ${index % 2 === 0 ? "left" : "right"}`,
+          initial: { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true, margin: "-100px" },
+          transition: { duration: 0.5, delay: index * 0.1 },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "timeline-dot", children: item.type === "work" ? "💼" : "🎓" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "timeline-content glass", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "timeline-date", children: item.period }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "timeline-role", children: item.title }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "timeline-org", children: item.organization }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "timeline-desc", children: item.description }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "timeline-skills", children: item.skills.map((skill) => /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "t-skill", children: skill }, skill)) })
+            ] })
+          ]
+        },
+        index
+      ))
+    ] })
+  ] });
+};
+const Footer = () => {
   const socialLinks = [
     {
       name: "LinkedIn",
@@ -13514,654 +14010,65 @@ const Sidebar = () => {
       name: "GitHub",
       url: "https://github.com/salmandshaikh",
       icon: "💻"
+    },
+    {
+      name: "Email",
+      url: "mailto:salmandshaikh1907@gmail.com",
+      icon: "📧"
     }
   ];
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    motion.aside,
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("footer", { className: "footer-section", id: "contact", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    motion.div,
     {
-      className: "sidebar glass",
-      initial: { x: -100, opacity: 0 },
-      animate: { x: 0, opacity: 1 },
-      transition: { duration: 0.6, ease: "easeOut" },
-      children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sidebar-content", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          motion.div,
+      className: "footer-content",
+      initial: { opacity: 0, y: 30 },
+      whileInView: { opacity: 1, y: 0 },
+      viewport: { once: true },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "footer-title", children: "Ready to create something amazing?" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-subtitle", children: "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.a,
           {
-            className: "avatar-box",
+            href: "mailto:salmandshaikh1907@gmail.com",
+            className: "footer-cta moving-border",
             whileHover: { scale: 1.05 },
-            transition: { type: "spring", stiffness: 300 },
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "avatar-glow" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "avatar-placeholder", children: "SS" })
-            ]
+            whileTap: { scale: 0.95 },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "cta-text", children: "Let's Get in Touch" })
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          motion.div,
-          {
-            className: "info-content",
-            initial: { y: 20, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            transition: { delay: 0.2, duration: 0.5 },
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "name", children: "Salman Shaikh" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "title", children: "Data Scientist" })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "separator" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "contacts-list", children: contactInfo.map((contact, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          motion.div,
-          {
-            className: "contact-item",
-            initial: { x: -20, opacity: 0 },
-            animate: { x: 0, opacity: 1 },
-            transition: { delay: 0.3 + index * 0.1 },
-            whileHover: { x: 5, backgroundColor: "rgba(139, 92, 246, 0.1)" },
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "contact-icon", children: contact.icon }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "contact-info", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "contact-title", children: contact.title }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: contact.link, className: "contact-link", children: contact.value })
-              ] })
-            ]
-          },
-          contact.title
-        )) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "separator" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "social-list", children: socialLinks.map((social, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "footer-socials", children: socialLinks.map((social) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           motion.a,
           {
             href: social.url,
             target: "_blank",
             rel: "noopener noreferrer",
-            className: "social-link",
-            initial: { scale: 0 },
-            animate: { scale: 1 },
-            transition: { delay: 0.6 + index * 0.1, type: "spring" },
-            whileHover: { scale: 1.2, rotate: 5 },
-            whileTap: { scale: 0.9 },
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "social-icon", children: social.icon })
+            className: "social-btn glass",
+            whileHover: { y: -5, backgroundColor: "rgba(139, 92, 246, 0.2)" },
+            title: social.name,
+            children: social.icon
           },
           social.name
-        )) })
-      ] })
-    }
-  );
-};
-const Navigation = ({ activeSection, setActiveSection }) => {
-  const navItems = ["About", "Resume", "Portfolio", "Contact"];
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "navigation glass", children: /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "nav-list", children: navItems.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("li", { className: "nav-item", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-    motion.button,
-    {
-      className: `nav-link ${activeSection === item ? "active" : ""}`,
-      onClick: () => setActiveSection(item),
-      whileHover: { scale: 1.05 },
-      whileTap: { scale: 0.95 },
-      children: item
-    }
-  ) }, item)) }) });
-};
-const About = () => {
-  const services = [
-    {
-      icon: "🤖",
-      title: "Machine Learning & Model Development",
-      description: "Building and deploying scalable machine learning models for classification, forecasting, and anomaly detection using Scikit-learn, XGBoost, TensorFlow, and PyTorch. Specializing in NLP and LLM-based solutions with Hugging Face Transformers."
-    },
-    {
-      icon: "☁️",
-      title: "MLOps & Cloud Deployment",
-      description: "Automating ML pipelines and production deployments using Docker, Kubernetes, and CI/CD workflows across cloud platforms including AWS SageMaker, GCP Vertex AI, and Azure ML Studio—ensuring reliability and scalability."
-    },
-    {
-      icon: "📊",
-      title: "Applied Data Science & Analytics",
-      description: "Developing end-to-end data science solutions using statistical modeling, machine learning, and deep learning techniques. Leveraging tools like Scikit-learn, TensorFlow, and PyTorch to solve business problems in forecasting, classification, and customer analytics."
-    },
-    {
-      icon: "🎯",
-      title: "Model Monitoring & Responsible AI",
-      description: "Developing dashboards to monitor model drift, latency, and accuracy using Power BI and Prometheus. Ensuring fairness, explainability, and compliance with Responsible AI practices."
-    }
-  ];
-  const skills = [
-    { name: "Fast Learner", icon: "⚡", description: "Ability to quickly acquire new knowledge and adapt to changing technological environments." },
-    { name: "Teamwork", icon: "👥", description: "Collaborate effectively in multidisciplinary projects and communicate clearly with team members." },
-    { name: "Problem Solving", icon: "🔧", description: "Creative and efficient in identifying and solving technical problems." },
-    { name: "Effective Communication", icon: "💬", description: "Skill to convey ideas clearly and concisely, both technically and non-technically." }
-  ];
-  const technologies = [
-    "Python",
-    "TensorFlow",
-    "PyTorch",
-    "Scikit-learn",
-    "Hugging Face",
-    "Pandas",
-    "NumPy",
-    "Jupyter",
-    "MySQL",
-    "Docker",
-    "Kubernetes",
-    "Power BI",
-    "Snowflake"
-  ];
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "about section", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    motion.div,
-    {
-      className: "container",
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      transition: { duration: 0.6 },
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.h2,
-          {
-            className: "section-title",
-            initial: { y: -20, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            children: "About Me"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "about-text", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "I am a Data Scientist with over 4 years of experience building and deploying machine learning and deep learning solutions across finance, retail, and telecom sectors. My core strengths include natural language processing, time series forecasting, and large language models (LLMs). I've developed models that improved business KPIs by up to 30%, working with tools like TensorFlow, PyTorch, and Scikit-learn, and deploying them across AWS, GCP, and Azure environments." }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "I specialize in scalable ML systems—designing robust data pipelines using Apache Spark, Kafka, and Airflow, and deploying models with FastAPI and Kubernetes. With a strong focus on MLOps, feature engineering, and model optimization, I bring together data science and engineering to deliver production-grade, responsible AI solutions that drive real business impact." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "subsection-title", children: "What I'm Doing" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "services-grid", children: services.map((service, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          motion.div,
-          {
-            className: "service-card glass",
-            initial: { opacity: 0, y: 20 },
-            animate: { opacity: 1, y: 0 },
-            transition: { delay: index * 0.1 },
-            whileHover: { y: -5 },
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "service-icon", children: service.icon }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "service-content", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "service-title", children: service.title }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "service-description", children: service.description })
-              ] })
-            ]
-          },
-          service.title
         )) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "subsection-title", children: "Soft Skills" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skills-grid", children: skills.map((skill, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          motion.div,
-          {
-            className: "skill-card glass",
-            initial: { opacity: 0, scale: 0.9 },
-            animate: { opacity: 1, scale: 1 },
-            transition: { delay: index * 0.1 },
-            whileHover: { scale: 1.05 },
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skill-icon", children: skill.icon }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "skill-name", children: skill.name }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "skill-description", children: skill.description })
-            ]
-          },
-          skill.name
-        )) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "subsection-title", children: "Tech Experience" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tech-list", children: technologies.map((tech, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.span,
-          {
-            className: "tech-tag",
-            initial: { opacity: 0, scale: 0 },
-            animate: { opacity: 1, scale: 1 },
-            transition: { delay: index * 0.05 },
-            whileHover: { scale: 1.1 },
-            children: tech
-          },
-          tech
-        )) })
-      ]
-    }
-  ) });
-};
-const Resume = () => {
-  const education = [
-    {
-      institution: "Northeastern University",
-      period: "2023 — 2025",
-      description: "Master of Science in Information Systems, Specializing in Data Science. Focused on machine learning, natural language processing, time series forecasting, and cloud deployment. Applied real-world AI solutions through academic and project-based learning."
-    }
-  ];
-  const experience = [
-    {
-      title: "Data Scientist",
-      company: "Goldman Sachs Group",
-      period: "Jan 2025 — Present",
-      description: "Developed end-to-end ML pipelines using Python and XGBoost, improving prediction accuracy by 10%. Built a Generative AI-powered financial chatbot with LLaMA 2.0, GPT-3.5, and RAG for real-time insights. Created Power BI dashboards integrated with AWS Redshift for KPI tracking. Delivered scalable AI solutions across the full pipeline, including deep learning, GAN-based data augmentation, and cloud deployment."
-    },
-    {
-      title: "Data Scientist",
-      company: "Zensar Technologies",
-      period: "Aug 2022 — July 2023",
-      description: "Built scalable AI tools using Python, SQL, and GCP, improving data quality by 90% and cutting deployment time by 25%. Developed ML models with Spark and GANs for anomaly detection, synthetic data generation, and automation, enhancing model accuracy and reliability."
-    },
-    {
-      title: "Data Science Consultant",
-      company: "Zensar Technologies",
-      period: "Aug 2021 — Jul 2022",
-      description: "Deployed ML models using Scikit-learn and transformers, achieving 92% churn prediction accuracy. Enhanced insights with Power BI dashboards and Python-SQL pipelines. Applied GANs, NLP, and deep learning (CNNs/RNNs) to tackle class imbalance, improve pattern recognition, and support enterprise AI solutions."
-    }
-  ];
-  const skills = [
-    "Language and Tools: Python, R, SQL, Spark, Vertex AI, Generative AI",
-    "IDEs: Visual Studio Code, Jupyter Notebook, PyCharm",
-    "ML Algorithms: Linear Regression, Logistic Regression, Decision Trees, Random Forests, XGBoost, SVM, K-Means, Naive Bayes, PCA",
-    "Deep Learning: CNN, RNN, LSTM, Transformers (BERT, GPT, T5, LLAMA), Hugging Face, Stable Diffusion, Generative AI (GenAI), OpenCV, LangChain",
-    "Packages: NumPy, Pandas, Scikit-learn, TensorFlow, PyTorch, Keras, Seaborn, Matplotlib, Plotly, SciPy, MLflow, NLTK, spaCy",
-    "Cloud Technology: AWS (EC2, S3, Lambda, SageMaker, EMR, DynamoDB), GCP (BigQuery, Vertex AI)",
-    "Big Data & Data Engineering: Apache Spark, Databricks, Snowflake, Airflow",
-    "MLOps & Model Deployment: Docker, Kubernetes, CI/CD Pipelines, RESTful APIs",
-    "Visualization Tools: Tableau, Power BI, Matplotlib, Seaborn",
-    "Database: PostgreSQL, MySQL, SQL Server, MongoDB, Cassandra, SPSS"
-  ];
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "resume section", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    motion.div,
-    {
-      className: "container",
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      transition: { duration: 0.6 },
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.h2,
-          {
-            className: "section-title",
-            initial: { y: -20, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            children: "Resume"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "resume-section", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "resume-section-title", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "icon", children: "🎓" }),
-            "Education"
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "timeline", children: education.map((item, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            motion.div,
-            {
-              className: "timeline-item glass",
-              initial: { opacity: 0, x: -20 },
-              animate: { opacity: 1, x: 0 },
-              transition: { delay: index * 0.1 },
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "timeline-title", children: item.institution }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "timeline-period", children: item.period }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "timeline-description", children: item.description })
-              ]
-            },
-            index
-          )) })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "resume-section", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "resume-section-title", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "icon", children: "💼" }),
-            "Experience"
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "timeline", children: experience.map((item, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            motion.div,
-            {
-              className: "timeline-item glass",
-              initial: { opacity: 0, x: -20 },
-              animate: { opacity: 1, x: 0 },
-              transition: { delay: index * 0.1 },
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("h4", { className: "timeline-title", children: [
-                  item.title,
-                  " – ",
-                  item.company
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "timeline-period", children: item.period }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "timeline-description", children: item.description })
-              ]
-            },
-            index
-          )) })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "resume-section", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "resume-section-title", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "icon", children: "🛠️" }),
-            "My Skills"
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skills-list", children: skills.map((skill, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-            motion.div,
-            {
-              className: "skill-item glass",
-              initial: { opacity: 0, y: 10 },
-              animate: { opacity: 1, y: 0 },
-              transition: { delay: index * 0.05 },
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: skill })
-            },
-            index
-          )) })
-        ] })
-      ]
-    }
-  ) });
-};
-const financeImg = "/assets/project-finance-Blmn2DS-.png";
-const crawlerImg = "/assets/project-crawler-DN4Zs5de.png";
-const movieImg = "/assets/project-movie-CtstFoiZ.jpg";
-const genaiImg = "/assets/project-genai-C4FZj5Q4.jpg";
-const newsImg = "/assets/project-news-8iG6Z8Bx.jpg";
-const researchImg = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20fill='none'%3e%3crect%20width='100'%20height='100'%20rx='20'%20fill='%234b5563'/%3e%3cpath%20d='M30%2030H70V70H30V30Z'%20stroke='white'%20stroke-width='4'/%3e%3cpath%20d='M35%2040H65M35%2050H65M35%2060H55'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'/%3e%3c/svg%3e";
-const Portfolio = () => {
-  const [filter2, setFilter] = reactExports.useState("All");
-  const projects = [
-    {
-      title: "Daily AI News",
-      category: "Generative AI",
-      description: "AI-powered daily news aggregator with automated podcast generation featuring two AI journalists",
-      image: newsImg,
-      github: "https://github.com/salmandshaikh/ai-daily-news",
-      live: "https://salmandshaikh.github.io/ai-daily-news",
-      featured: true,
-      tags: ["React", "Python", "LLM", "GitHub Actions", "TTS"]
-    },
-    {
-      title: "Modeling Student Behavior in Complex Learning Environments",
-      category: "Data Science",
-      description: "Research paper on machine learning models for educational analytics",
-      image: researchImg,
-      github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
-      tags: ["Research", "ML", "Education"]
-    },
-    {
-      title: "Movie Recommendation MLOps",
-      category: "Data Science",
-      description: "End-to-end ML pipeline for personalized movie recommendations",
-      image: movieImg,
-      github: "https://github.com/Salmanshaikh3223/Movie-Recommendation-System",
-      tags: ["MLOps", "Recommendation", "Python"]
-    },
-    {
-      title: "GenAI Bot NLTK Toolkit",
-      category: "Generative AI",
-      description: "Natural language processing chatbot using NLTK and generative AI",
-      image: genaiImg,
-      github: "https://github.com/salmandshaikh",
-      tags: ["NLP", "NLTK", "Chatbot"]
-    },
-    {
-      title: "Web Crawler",
-      category: "Data Science",
-      description: "Intelligent web scraping and data extraction system",
-      image: crawlerImg,
-      github: "https://github.com/salmandshaikh/Web-Crawler",
-      tags: ["Python", "Scraping", "Data"]
-    },
-    {
-      title: "Financial Market Forecasting",
-      category: "Data Science",
-      description: "Time series forecasting for financial markets using deep learning",
-      image: financeImg,
-      github: "https://github.com/salmandshaikh",
-      tags: ["Time Series", "LSTM", "Finance"]
-    }
-  ];
-  const categories = ["All", "Data Science", "Generative AI", "MLOps"];
-  const filteredProjects = filter2 === "All" ? projects : projects.filter((p2) => p2.category === filter2);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "portfolio section", id: "portfolio", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    motion.div,
-    {
-      className: "container",
-      initial: { opacity: 0 },
-      whileInView: { opacity: 1 },
-      viewport: { once: true },
-      transition: { duration: 0.6 },
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.h2,
-          {
-            className: "section-title",
-            initial: { y: -20, opacity: 0 },
-            whileInView: { y: 0, opacity: 1 },
-            viewport: { once: true },
-            children: "Portfolio"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "filter-buttons", children: categories.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.button,
-          {
-            className: `filter-btn ${filter2 === cat ? "active" : ""}`,
-            onClick: () => setFilter(cat),
-            whileHover: { scale: 1.02 },
-            whileTap: { scale: 0.98 },
-            children: cat
-          },
-          cat
-        )) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "projects-grid", children: filteredProjects.map((project, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          motion.div,
-          {
-            className: `project-card glass ${project.featured ? "featured" : ""}`,
-            initial: { opacity: 0, y: 20 },
-            whileInView: { opacity: 1, y: 0 },
-            viewport: { once: true },
-            transition: { delay: index * 0.1, duration: 0.4 },
-            children: [
-              project.featured && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "featured-badge", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "⭐ Featured" }) }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-image-container", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: project.image, alt: project.title, className: "project-image" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "project-overlay" })
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-content", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "project-title", children: project.title }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "project-category", children: project.category }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "project-description", children: project.description }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "project-tags", children: project.tags.map((tag) => /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "tag", children: tag }, tag)) }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-links", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    motion.a,
-                    {
-                      href: project.github,
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                      className: "project-link",
-                      whileHover: { scale: 1.05 },
-                      whileTap: { scale: 0.95 },
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "GitHub" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "arrow", children: "→" })
-                      ]
-                    }
-                  ),
-                  project.live && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    motion.a,
-                    {
-                      href: project.live,
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                      className: "project-link live",
-                      whileHover: { scale: 1.05 },
-                      whileTap: { scale: 0.95 },
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Live Demo" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "arrow", children: "→" })
-                      ]
-                    }
-                  )
-                ] })
-              ] })
-            ]
-          },
-          project.title
-        )) })
-      ]
-    }
-  ) });
-};
-const Contact = () => {
-  const [formData, setFormData] = reactExports.useState({
-    name: "",
-    email: "",
-    message: ""
-  });
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! I will get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
-  };
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "contact section", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    motion.div,
-    {
-      className: "container",
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      transition: { duration: 0.6 },
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.h2,
-          {
-            className: "section-title",
-            initial: { y: -20, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            children: "Contact"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "contact-content", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            motion.div,
-            {
-              className: "contact-info",
-              initial: { opacity: 0, x: -20 },
-              animate: { opacity: 1, x: 0 },
-              transition: { delay: 0.2 },
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "contact-info-title", children: "Get in Touch" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "contact-info-text", children: "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision." }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "contact-details", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "contact-detail-item", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "contact-icon", children: "📧" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "Email" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "mailto:salmandshaikh1907@gmail.com", children: "salmandshaikh1907@gmail.com" })
-                    ] })
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "contact-detail-item", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "contact-icon", children: "📱" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "Phone" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "tel:+18574059046", children: "+1 (857) 405-9046" })
-                    ] })
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "contact-detail-item", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "contact-icon", children: "📍" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "Location" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "San Jose, California, USA" })
-                    ] })
-                  ] })
-                ] })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            motion.form,
-            {
-              className: "contact-form glass",
-              onSubmit: handleSubmit,
-              initial: { opacity: 0, x: 20 },
-              animate: { opacity: 1, x: 0 },
-              transition: { delay: 0.3 },
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "form-group", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "name", children: "Name" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "input",
-                    {
-                      type: "text",
-                      id: "name",
-                      name: "name",
-                      value: formData.name,
-                      onChange: handleChange,
-                      required: true,
-                      placeholder: "Your name"
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "form-group", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "email", children: "Email" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "input",
-                    {
-                      type: "email",
-                      id: "email",
-                      name: "email",
-                      value: formData.email,
-                      onChange: handleChange,
-                      required: true,
-                      placeholder: "your.email@example.com"
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "form-group", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "message", children: "Message" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "textarea",
-                    {
-                      id: "message",
-                      name: "message",
-                      value: formData.message,
-                      onChange: handleChange,
-                      required: true,
-                      rows: "6",
-                      placeholder: "Your message..."
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  motion.button,
-                  {
-                    type: "submit",
-                    className: "submit-btn",
-                    whileHover: { scale: 1.02 },
-                    whileTap: { scale: 0.98 },
-                    children: "Send Message"
-                  }
-                )
-              ]
-            }
-          )
-        ] })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "footer-bottom", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+          "© ",
+          (/* @__PURE__ */ new Date()).getFullYear(),
+          " Salman Shaikh. All rights reserved."
+        ] }) })
       ]
     }
   ) });
 };
 function App() {
-  const [activeSection, setActiveSection] = reactExports.useState("About");
-  const renderSection = () => {
-    switch (activeSection) {
-      case "About":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(About, {});
-      case "Resume":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(Resume, {});
-      case "Portfolio":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(Portfolio, {});
-      case "Contact":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(Contact, {});
-      default:
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(About, {});
-    }
-  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "App", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(NeuralBackground, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FloatingNav, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "main-content", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, { activeSection, setActiveSection }),
-      renderSection()
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Hero, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(BentoGrid, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ProjectsGrid, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Journey, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
     ] })
   ] });
 }
@@ -14169,4 +14076,4 @@ console.log("Portfolio v1.1 loaded");
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
-//# sourceMappingURL=index-j7FM8LT4.js.map
+//# sourceMappingURL=index-B9Ie6ntr.js.map

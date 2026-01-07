@@ -1,18 +1,64 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #0f172a;
+    /* Fallback */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
 .App {
     min-height: 100vh;
     position: relative;
 }
 
 .main-content {
-    margin-left: 350px;
-    padding: 2rem;
-    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    /* Removed margin-left: 350px from previous sidebar layout */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-    .main-content {
-        margin-left: 0;
-        padding: 1rem;
-    }
+/* Glassmorphism Utility Class */
+.glass {
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
 }

@@ -1,38 +1,23 @@
-import { useState } from 'react';
 import NeuralBackground from './components/NeuralBackground';
-import Sidebar from './components/Sidebar';
-import Navigation from './components/Navigation';
-import About from './components/About';
-import Resume from './components/Resume';
-import Portfolio from './components/Portfolio';
-import Contact from './components/Contact';
+import FloatingNav from './components/FloatingNav';
+import Hero from './components/Hero';
+import BentoGrid from './components/BentoGrid';
+import ProjectsGrid from './components/ProjectsGrid';
+import Journey from './components/Journey';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
-    const [activeSection, setActiveSection] = useState('About');
-
-    const renderSection = () => {
-        switch (activeSection) {
-            case 'About':
-                return <About />;
-            case 'Resume':
-                return <Resume />;
-            case 'Portfolio':
-                return <Portfolio />;
-            case 'Contact':
-                return <Contact />;
-            default:
-                return <About />;
-        }
-    };
-
     return (
         <div className="App">
             <NeuralBackground />
-            <Sidebar />
+            <FloatingNav />
             <main className="main-content">
-                <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
-                {renderSection()}
+                <Hero />
+                <BentoGrid />
+                <ProjectsGrid />
+                <Journey />
+                <Footer />
             </main>
         </div>
     );

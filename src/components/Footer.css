@@ -1,0 +1,97 @@
+.footer-section {
+    padding: 6rem 2rem 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, white, rgba(255, 255, 255, 0.5));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.footer-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.footer-cta {
+    display: inline-flex;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    background: rgba(17, 24, 39, 0.8);
+    border-radius: 50px;
+    margin-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Reusing the moving border animation from Hero.css */
+.footer-cta::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 52px;
+    padding: 2px;
+    background: linear-gradient(90deg,
+            #a855f7,
+            #6366f1,
+            #3b82f6,
+            #6366f1,
+            #a855f7);
+    background-size: 300% 100%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: movingBorder 3s linear infinite;
+    z-index: -1;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.social-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 2rem;
+    width: 100%;
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
+}

@@ -1,0 +1,210 @@
+.bento-section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #a855f7, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+}
+
+.bento-card {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+    border-color: rgba(168, 85, 247, 0.3);
+    transform: translateY(-2px);
+}
+
+.bento-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center,
+            rgba(168, 85, 247, 0.1) 0%,
+            transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.bento-card:hover .bento-glow {
+    opacity: 1;
+}
+
+/* Grid layout for boxes */
+.bento-large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.bento-medium {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.bento-small {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.bento-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(168, 85, 247, 0.9);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bento-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.bento-text:last-child {
+    margin-bottom: 0;
+}
+
+.life-text {
+    line-height: 2;
+    font-size: 0.95rem;
+}
+
+/* Digital DNA - Skill Cycling */
+.skill-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    margin: 1rem 0;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-icon {
+    font-size: 3rem;
+}
+
+.skill-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+}
+
+.skill-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.skill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.skill-dot.active {
+    background: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+/* Interactive Email Card */
+.bento-interactive {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.email-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.email-icon {
+    font-size: 2.5rem;
+}
+
+.email-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.bento-interactive:hover {
+    background: rgba(168, 85, 247, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bento-large {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .bento-medium {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .bento-section {
+        padding: 4rem 1rem;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .bento-large,
+    .bento-medium,
+    .bento-small {
+        grid-column: span 1;
+    }
+
+    .bento-card {
+        padding: 1.25rem;
+    }
+}
