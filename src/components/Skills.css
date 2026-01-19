@@ -1,0 +1,28 @@
+.skills-section {
+    padding: 4rem 0;
+    position: relative;
+    z-index: 10;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.skill-card {
+    padding: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    cursor: default;
+    background: rgba(255, 255, 255, 0.03); /* Very subtle default */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skill-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px var(--accent-glow);
+}

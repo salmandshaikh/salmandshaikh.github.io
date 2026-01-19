@@ -1,25 +1,26 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NeuralBackground from './components/NeuralBackground';
 import FloatingNav from './components/FloatingNav';
-import Hero from './components/Hero';
-import BentoGrid from './components/BentoGrid';
-import ProjectsGrid from './components/ProjectsGrid';
-import Journey from './components/Journey';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import Resume from './pages/Resume';
 import './App.css';
 
 function App() {
     return (
-        <div className="App">
-            <NeuralBackground />
-            <FloatingNav />
-            <main className="main-content">
-                <Hero />
-                <BentoGrid />
-                <ProjectsGrid />
-                <Journey />
+        <Router>
+            <div className="App">
+                <NeuralBackground />
+                <FloatingNav />
+                <main className="main-content">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/resume" element={<Resume />} />
+                    </Routes>
+                </main>
                 <Footer />
-            </main>
-        </div>
+            </div>
+        </Router>
     );
 }
 

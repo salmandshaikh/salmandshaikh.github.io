@@ -45,7 +45,7 @@ const Journey = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
             >
-                My Journey
+                Traverse
             </motion.h2>
 
             <div className="timeline-container">
