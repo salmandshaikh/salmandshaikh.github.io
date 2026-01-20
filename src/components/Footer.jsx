@@ -51,7 +51,7 @@ const Footer = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="social-btn glass"
-                            whileHover={{ y: -5, backgroundColor: 'rgba(139, 92, 246, 0.2)' }}
+                            whileHover={{ y: -5, backgroundColor: 'rgba(0, 122, 255, 0.2)' }}
                             title={social.name}
                         >
                             {social.icon}

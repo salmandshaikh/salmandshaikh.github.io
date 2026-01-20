@@ -6,9 +6,9 @@
     --bg-glass: rgba(22, 27, 34, 0.7);
     /* Darker, more premium glass */
 
-    --accent-primary: #3b82f6;
-    --accent-secondary: #6366f1;
-    --accent-glow: rgba(59, 130, 246, 0.5);
+    --accent-primary: #007AFF;
+    --accent-secondary: #5AC8FA;
+    --accent-glow: rgba(0, 122, 255, 0.5);
     /* For hover effects */
     --accent-muted: #4b5563;
 
@@ -16,14 +16,14 @@
     --text-secondary: #9ca3af;
     --text-muted: #6b7280;
 
-    --border-color: rgba(56, 139, 253, 0.15);
+    --border-color: rgba(0, 122, 255, 0.15);
     /* Subtle blue tint */
-    --hover-bg: rgba(56, 139, 253, 0.1);
+    --hover-bg: rgba(0, 122, 255, 0.1);
 
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 15px rgba(59, 130, 246, 0.3);
+    --shadow-glow: 0 0 15px rgba(0, 122, 255, 0.3);
     /* New glow shadow */
 
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

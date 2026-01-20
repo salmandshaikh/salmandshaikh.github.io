@@ -73,7 +73,7 @@ const Sidebar = () => {
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 0.3 + index * 0.1 }}
-                            whileHover={{ x: 5, backgroundColor: 'rgba(139, 92, 246, 0.1)' }}
+                            whileHover={{ x: 5, backgroundColor: 'rgba(0, 122, 255, 0.1)' }}
                         >
                             <span className="contact-icon">{contact.icon}</span>
                             <div className="contact-info">

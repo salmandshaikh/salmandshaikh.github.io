@@ -52,10 +52,10 @@
 .active-indicator {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(59, 130, 246, 0.3));
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.3), rgba(90, 200, 250, 0.3));
     border-radius: 30px;
     z-index: -1;
-    border: 1px solid rgba(168, 85, 247, 0.3);
+    border: 1px solid rgba(0, 122, 255, 0.3);
 }
 
 /* Glow effect on hover */
@@ -64,7 +64,7 @@
     position: absolute;
     inset: -2px;
     border-radius: 32px;
-    background: linear-gradient(135deg, #a855f7, #3b82f6);
+    background: linear-gradient(135deg, #007AFF, #5AC8FA);
     opacity: 0;
     z-index: -2;
     transition: opacity 0.3s ease;

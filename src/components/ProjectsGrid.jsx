@@ -2,15 +2,25 @@ import { motion } from 'framer-motion';
 import './ProjectsGrid.css';
 
 // Import images
-import financeImg from '../assets/project-finance.png';
 import crawlerImg from '../assets/project-crawler.png';
 import movieImg from '../assets/project-movie.jpg';
 import genaiImg from '../assets/project-genai.jpg';
 import newsImg from '../assets/project-news.jpg';
-import researchImg from '../assets/research-logo.svg';
+import springerImg from '../assets/springer.jpeg';
+import stockmarketImg from '../assets/project-stockmarket.jpeg';
+import pricetrackerImg from '../assets/project-pricetracker.jpeg';
 
 const ProjectsGrid = () => {
     const projects = [
+        {
+            title: "Research Paper: Student Behaviour Modeling",
+            description: "Published in International Conference for Artificial Intelligence in Education and Lecture Notes in Computer Science (LNCS) Volume 13355.",
+            image: springerImg,
+            techStack: ['📄', '🔬', '🎓', '🤖'],
+            techNames: ['Research', 'ML', 'Education', 'AI'],
+            github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
+            featured: true
+        },
         {
             title: "Daily AI News",
             description: "AI-powered daily news aggregator with automated podcast generation featuring two AI journalists discussing the latest in AI.",
@@ -20,6 +30,22 @@ const ProjectsGrid = () => {
             github: "https://github.com/salmandshaikh/ai-daily-news",
             live: "https://salmandshaikh.github.io/ai-daily-news",
             featured: true
+        },
+        {
+            title: "Wishlist Price Tracker & Buy-Timing Intelligence",
+            description: "Secure wishlist-based price tracking across Amazon, Walmart, Best Buy, and Target with historical trends, percentile-based buy/wait/watch signals, and LLM-powered insight summaries.",
+            image: pricetrackerImg,
+            techStack: ['⚡', '🗄️', '🔴', '🤖'],
+            techNames: ['FastAPI', 'Supabase', 'Redis', 'Groq LLM'],
+            github: "https://github.com/salmandshaikh"
+        },
+        {
+            title: "Market Signal Engine & Trade Decision Support",
+            description: "Production-grade market signal engine predicting short-horizon stock outperformance using LightGBM on OHLCV data, with walk-forward validation, SHAP-based explainability, and LLM-powered risk summaries.",
+            image: stockmarketImg,
+            techStack: ['🐍', '📊', '🔍', '🤖'],
+            techNames: ['Python', 'LightGBM', 'SHAP', 'Groq LLM'],
+            github: "https://github.com/salmandshaikh"
         },
         {
             title: "Movie Recommendation MLOps",
@@ -38,28 +64,12 @@ const ProjectsGrid = () => {
             github: "https://github.com/salmandshaikh"
         },
         {
-            title: "Financial Market Forecasting",
-            description: "Time series forecasting for financial markets using LSTM neural networks and deep learning techniques.",
-            image: financeImg,
-            techStack: ['🐍', '📈', '🧠'],
-            techNames: ['Python', 'LSTM', 'TensorFlow'],
-            github: "https://github.com/salmandshaikh"
-        },
-        {
             title: "Web Crawler",
             description: "Intelligent web scraping system for automated data extraction and analysis at scale.",
             image: crawlerImg,
             techStack: ['🐍', '🕷️', '📊'],
             techNames: ['Python', 'BeautifulSoup', 'Pandas'],
             github: "https://github.com/salmandshaikh/Web-Crawler"
-        },
-        {
-            title: "Research: Student Behavior Modeling",
-            description: "Published research on ML models for educational analytics in complex learning environments.",
-            image: researchImg,
-            techStack: ['📄', '🔬', '🎓'],
-            techNames: ['Research', 'ML', 'Education'],
-            github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46"
         }
     ];
 

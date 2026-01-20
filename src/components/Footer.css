@@ -52,11 +52,11 @@
     border-radius: 52px;
     padding: 2px;
     background: linear-gradient(90deg,
-            #a855f7,
-            #6366f1,
-            #3b82f6,
-            #6366f1,
-            #a855f7);
+            #007AFF,
+            #5AC8FA,
+            #34C759,
+            #5AC8FA,
+            #007AFF);
     background-size: 300% 100%;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;

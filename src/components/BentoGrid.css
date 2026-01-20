@@ -9,7 +9,7 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 3rem;
-    background: linear-gradient(135deg, #a855f7, #3b82f6);
+    background: linear-gradient(135deg, #007AFF, #5AC8FA);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -34,7 +34,7 @@
 }
 
 .bento-card:hover {
-    border-color: rgba(168, 85, 247, 0.3);
+    border-color: rgba(0, 122, 255, 0.3);
     transform: translateY(-2px);
 }
 
@@ -45,7 +45,7 @@
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center,
-            rgba(168, 85, 247, 0.1) 0%,
+            rgba(0, 122, 255, 0.1) 0%,
             transparent 50%);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -75,7 +75,7 @@
 .bento-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: rgba(168, 85, 247, 0.9);
+    color: rgba(0, 122, 255, 0.9);
     margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -139,8 +139,8 @@
 }
 
 .skill-dot.active {
-    background: #a855f7;
-    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    background: #007AFF;
+    box-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
 }
 
 /* Interactive Email Card */
@@ -169,7 +169,7 @@
 }
 
 .bento-interactive:hover {
-    background: rgba(168, 85, 247, 0.15);
+    background: rgba(0, 122, 255, 0.15);
 }
 
 /* Responsive */

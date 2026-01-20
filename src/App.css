@@ -4,8 +4,7 @@
     font-weight: 400;
     color-scheme: dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #0f172a;
-    /* Fallback */
+    background-color: #0a0a0f;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -21,6 +20,7 @@ body {
     min-width: 320px;
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #0a0a0f;
 }
 
 .App {
@@ -28,10 +28,74 @@ body {
     position: relative;
 }
 
+/* Background Images Container - Scrolls with page */
+.background-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.background-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.background-image.bg-1 {
+    /* First background at top with 70% opacity */
+    opacity: 0.7;
+}
+
+.background-image.bg-2 {
+    /* Second background below, with overlap blend */
+    margin-top: -15vh;
+}
+
+/* Gradient overlay for smooth blending between images */
+.background-blend {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        /* Top fade */
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            transparent 40%,
+            rgba(10, 10, 15, 0.4) 48%,
+            rgba(10, 10, 15, 0.4) 52%,
+            transparent 60%,
+            transparent 100%
+        );
+    pointer-events: none;
+}
+
+/* Dark overlay for better text readability */
+.App::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 15, 0.3);
+    z-index: 0;
+    pointer-events: none;
+}
+
 .main-content {
     position: relative;
     z-index: 1;
-    /* Removed margin-left: 350px from previous sidebar layout */
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
@@ -51,7 +115,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #0a0a0f;
 }
 
 ::-webkit-scrollbar-thumb {
