@@ -9277,70 +9277,6 @@ function useViewTransitionState(to, { relative } = {}) {
   let nextPath = stripBasename(vtContext.nextLocation.pathname, basename) || vtContext.nextLocation.pathname;
   return matchPath(path.pathname, nextPath) != null || matchPath(path.pathname, currentPath) != null;
 }
-const NeuralBackground = () => {
-  const canvasRef = reactExports.useRef(null);
-  reactExports.useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    let animationFrameId;
-    let particles = [];
-    const init = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      createParticles();
-    };
-    const createParticles = () => {
-      particles = [];
-      const numberOfParticles = Math.floor(canvas.width * canvas.height / 15e3);
-      for (let i = 0; i < numberOfParticles; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          // Slow movement
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 1.5 + 0.5
-        });
-      }
-    };
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(59, 130, 246, 0.5)";
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.15)";
-      particles.forEach((particle, i) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance2 = Math.sqrt(dx * dx + dy * dy);
-          if (distance2 < 100) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - distance2 / 100)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      });
-      animationFrameId = requestAnimationFrame(draw);
-    };
-    window.addEventListener("resize", init);
-    init();
-    draw();
-    return () => {
-      window.removeEventListener("resize", init);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("canvas", { ref: canvasRef, className: "neural-background" });
-};
 const MotionConfigContext = reactExports.createContext({
   transformPagePoint: (p2) => p2,
   isStatic: false,
@@ -15865,7 +15801,7 @@ const Footer = () => {
             target: "_blank",
             rel: "noopener noreferrer",
             className: "social-btn glass",
-            whileHover: { y: -5, backgroundColor: "rgba(139, 92, 246, 0.2)" },
+            whileHover: { y: -5, backgroundColor: "rgba(0, 122, 255, 0.2)" },
             title: social.name,
             children: social.icon
           },
@@ -15951,14 +15887,24 @@ const Hero = () => {
     )
   ] }) });
 };
-const financeImg = "/assets/project-finance-Blmn2DS-.png";
 const crawlerImg = "/assets/project-crawler-DN4Zs5de.png";
 const movieImg = "/assets/project-movie-CtstFoiZ.jpg";
 const genaiImg = "/assets/project-genai-C4FZj5Q4.jpg";
 const newsImg = "/assets/project-news-8iG6Z8Bx.jpg";
-const researchImg = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20fill='none'%3e%3crect%20width='100'%20height='100'%20rx='20'%20fill='%234b5563'/%3e%3cpath%20d='M30%2030H70V70H30V30Z'%20stroke='white'%20stroke-width='4'/%3e%3cpath%20d='M35%2040H65M35%2050H65M35%2060H55'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'/%3e%3c/svg%3e";
+const springerImg = "/assets/springer-ClkzNs0y.jpeg";
+const stockmarketImg = "/assets/project-stockmarket-CKLhKPPe.jpeg";
+const pricetrackerImg = "/assets/project-pricetracker-Hx51JPXu.jpeg";
 const ProjectsGrid = () => {
   const projects = [
+    {
+      title: "Research Paper: Student Behaviour Modeling",
+      description: "Published in International Conference for Artificial Intelligence in Education and Lecture Notes in Computer Science (LNCS) Volume 13355.",
+      image: springerImg,
+      techStack: ["📄", "🔬", "🎓", "🤖"],
+      techNames: ["Research", "ML", "Education", "AI"],
+      github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
+      featured: true
+    },
     {
       title: "Daily AI News",
       description: "AI-powered daily news aggregator with automated podcast generation featuring two AI journalists discussing the latest in AI.",
@@ -15968,6 +15914,22 @@ const ProjectsGrid = () => {
       github: "https://github.com/salmandshaikh/ai-daily-news",
       live: "https://salmandshaikh.github.io/ai-daily-news",
       featured: true
+    },
+    {
+      title: "Wishlist Price Tracker & Buy-Timing Intelligence",
+      description: "Secure wishlist-based price tracking across Amazon, Walmart, Best Buy, and Target with historical trends, percentile-based buy/wait/watch signals, and LLM-powered insight summaries.",
+      image: pricetrackerImg,
+      techStack: ["⚡", "🗄️", "🔴", "🤖"],
+      techNames: ["FastAPI", "Supabase", "Redis", "Groq LLM"],
+      github: "https://github.com/salmandshaikh"
+    },
+    {
+      title: "Market Signal Engine & Trade Decision Support",
+      description: "Production-grade market signal engine predicting short-horizon stock outperformance using LightGBM on OHLCV data, with walk-forward validation, SHAP-based explainability, and LLM-powered risk summaries.",
+      image: stockmarketImg,
+      techStack: ["🐍", "📊", "🔍", "🤖"],
+      techNames: ["Python", "LightGBM", "SHAP", "Groq LLM"],
+      github: "https://github.com/salmandshaikh"
     },
     {
       title: "Movie Recommendation MLOps",
@@ -15986,28 +15948,12 @@ const ProjectsGrid = () => {
       github: "https://github.com/salmandshaikh"
     },
     {
-      title: "Financial Market Forecasting",
-      description: "Time series forecasting for financial markets using LSTM neural networks and deep learning techniques.",
-      image: financeImg,
-      techStack: ["🐍", "📈", "🧠"],
-      techNames: ["Python", "LSTM", "TensorFlow"],
-      github: "https://github.com/salmandshaikh"
-    },
-    {
       title: "Web Crawler",
       description: "Intelligent web scraping system for automated data extraction and analysis at scale.",
       image: crawlerImg,
       techStack: ["🐍", "🕷️", "📊"],
       techNames: ["Python", "BeautifulSoup", "Pandas"],
       github: "https://github.com/salmandshaikh/Web-Crawler"
-    },
-    {
-      title: "Research: Student Behavior Modeling",
-      description: "Published research on ML models for educational analytics in complex learning environments.",
-      image: researchImg,
-      techStack: ["📄", "🔬", "🎓"],
-      techNames: ["Research", "ML", "Education"],
-      github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46"
     }
   ];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "projects-section", id: "projects", children: [
@@ -16137,7 +16083,7 @@ const Journey = () => {
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
-        children: "Traverse"
+        children: "My Journey"
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "timeline-container", children: [
@@ -16167,24 +16113,42 @@ const Journey = () => {
   ] });
 };
 const Skills = () => {
-  const skills = [
-    "Machine Learning",
-    "Deep Learning",
-    "NLP",
-    "Time Series",
-    "LLMs",
-    "TensorFlow",
-    "PyTorch",
-    "Scikit-learn",
-    "AWS",
-    "GCP",
-    "Azure",
-    "Apache Spark",
-    "Kafka",
-    "Airflow",
-    "FastAPI",
-    "Kubernetes",
-    "MLOps"
+  const skillCategories = [
+    {
+      title: "AI & Agents",
+      size: "large",
+      skills: ["MCP Tools", "AI Orchestration", "Building Agents", "Agentic AI", "Transformers", "LLMs", "RAG"]
+    },
+    {
+      title: "Data Science",
+      size: "medium",
+      skills: ["Machine Learning", "Deep Learning", "NLP", "Time Series", "Statistical Modeling", "Feature Engineering"]
+    },
+    {
+      title: "ML Frameworks",
+      size: "medium",
+      skills: ["TensorFlow", "PyTorch", "Scikit-learn", "LightGBM", "XGBoost", "Hugging Face"]
+    },
+    {
+      title: "Cloud & Infrastructure",
+      size: "small",
+      skills: ["AWS", "GCP", "Azure", "Docker", "Kubernetes"]
+    },
+    {
+      title: "Data Engineering",
+      size: "small",
+      skills: ["Apache Spark", "Kafka", "Airflow", "ETL Pipelines"]
+    },
+    {
+      title: "Backend & APIs",
+      size: "small",
+      skills: ["FastAPI", "Python", "SQL", "Redis", "Supabase"]
+    },
+    {
+      title: "MLOps & Tools",
+      size: "small",
+      skills: ["MLflow", "Git", "CI/CD", "Power BI", "Streamlit"]
+    }
   ];
   return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "skills-section", id: "skills", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16197,18 +16161,36 @@ const Skills = () => {
         children: "Technical Skills"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skills-grid", children: skills.map((skill, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bento-grid", children: skillCategories.map((category, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
       motion.div,
       {
-        className: "skill-card glass",
-        initial: { opacity: 0, y: 20 },
+        className: `bento-card bento-${category.size}`,
+        initial: { opacity: 0, y: 30 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
-        transition: { delay: index * 0.05 },
-        whileHover: { scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" },
-        children: skill
+        transition: { delay: index * 0.1, duration: 0.5 },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "water-container", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "water-wave wave-1" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "water-wave wave-2" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "water-wave wave-3" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bento-content", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "bento-title", children: category.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skills-tags", children: category.skills.map((skill) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              motion.span,
+              {
+                className: "skill-tag",
+                whileHover: { scale: 1.05, y: -2 },
+                children: skill
+              },
+              skill
+            )) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bento-glow" })
+        ]
       },
-      skill
+      category.title
     )) })
   ] }) });
 };
@@ -16238,8 +16220,8 @@ const Contact = () => {
 const Home = () => {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "home-container", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Hero, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Skills, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ProjectsGrid, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Skills, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Journey, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Contact, {})
   ] });
@@ -16267,9 +16249,17 @@ const Resume = () => {
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { textAlign: "center", color: "var(--text-secondary)" }, children: "Resume preview coming soon." })
   ] });
 };
+const bg1 = "/assets/background-1-DHiAqNk9.png";
+const bg2 = "/assets/background-2-DLydlMRV.png";
 function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "App", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(NeuralBackground, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "background-wrapper", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: bg1, alt: "", className: "background-image bg-1" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: bg2, alt: "", className: "background-image bg-2" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: bg1, alt: "", className: "background-image bg-1" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: bg2, alt: "", className: "background-image bg-2" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "background-blend" })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(FloatingNav, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "main-content", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Home, {}) }),
@@ -16282,4 +16272,4 @@ console.log("Portfolio v1.1 loaded");
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
-//# sourceMappingURL=index-BZkq6Y-G.js.map
+//# sourceMappingURL=index-BegF9-uM.js.map
