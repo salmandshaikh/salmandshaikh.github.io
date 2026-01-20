@@ -18,7 +18,7 @@ const ProjectsGrid = () => {
             image: springerImg,
             techStack: ['📄', '🔬', '🎓', '🤖'],
             techNames: ['Research', 'ML', 'Education', 'AI'],
-            github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
+            github: "https://www.springerprofessional.de/en/student-behavior-models-in-ill-structured-problem-solving-enviro/23307100",
             featured: true
         },
         {
