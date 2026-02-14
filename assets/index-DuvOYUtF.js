@@ -15902,7 +15902,7 @@ const ProjectsGrid = () => {
       image: springerImg,
       techStack: ["📄", "🔬", "🎓", "🤖"],
       techNames: ["Research", "ML", "Education", "AI"],
-      github: "https://www.springerprofessional.de/en/student-behavior-models-in-ill-structured-problem-solving-enviro/23307100",
+      github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
       featured: true
     },
     {
@@ -15937,7 +15937,7 @@ const ProjectsGrid = () => {
       image: movieImg,
       techStack: ["🐍", "🔬", "🐳"],
       techNames: ["Python", "Scikit-learn", "Docker"],
-      github: "https://github.com/Salmanshaikh3223/Movie-Recommendation-System"
+      github: "https://github.com/salmandshaikh/Movie-Recommendation-System"
     },
     {
       title: "GenAI Bot NLTK Toolkit",
@@ -15968,14 +15968,18 @@ const ProjectsGrid = () => {
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "projects-grid", children: projects.map((project, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      motion.div,
+      motion.a,
       {
+        href: project.live || project.github,
+        target: "_blank",
+        rel: "noopener noreferrer",
         className: `project-card glass ${project.featured ? "featured" : ""}`,
         initial: { opacity: 0, y: 30 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
         transition: { delay: index * 0.1 },
         whileHover: { y: -5 },
+        style: { textDecoration: "none" },
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-image-wrapper", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16003,34 +16007,14 @@ const ProjectsGrid = () => {
             /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "project-title", children: project.title }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "project-description", children: project.description }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "project-links", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                motion.a,
-                {
-                  href: project.github,
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                  className: "project-link",
-                  whileHover: { x: 5 },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "View Project" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "link-arrow", children: "→" })
-                  ]
-                }
-              ),
-              project.live && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                motion.a,
-                {
-                  href: project.live,
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                  className: "project-link live",
-                  whileHover: { x: 5 },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Live Demo" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "link-arrow", children: "→" })
-                  ]
-                }
-              )
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "project-link", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "View Project" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "link-arrow", children: "→" })
+              ] }),
+              project.live && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "project-link live", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Live Demo" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "link-arrow", children: "→" })
+              ] })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card-border" })
@@ -16272,4 +16256,4 @@ console.log("Portfolio v1.1 loaded");
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
-//# sourceMappingURL=index-BBoprkYw.js.map
+//# sourceMappingURL=index-DuvOYUtF.js.map
