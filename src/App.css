@@ -20,67 +20,20 @@ body {
     min-width: 320px;
     min-height: 100vh;
     overflow-x: hidden;
-    background-color: #0a0a0f;
+    background-color: #050508;
 }
 
 .App {
     min-height: 100vh;
     position: relative;
+    background-image: url('./assets/background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-/* Background Images Container - Scrolls with page */
-.background-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.background-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    min-height: 100vh;
-    object-fit: cover;
-    object-position: center top;
-}
-
-.background-image.bg-1 {
-    /* First background at top with 70% opacity */
-    opacity: 0.7;
-}
-
-.background-image.bg-2 {
-    /* Second background below, with overlap blend */
-    margin-top: -15vh;
-}
-
-/* Gradient overlay for smooth blending between images */
-.background-blend {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        /* Top fade */
-        linear-gradient(
-            to bottom,
-            transparent 0%,
-            transparent 40%,
-            rgba(10, 10, 15, 0.4) 48%,
-            rgba(10, 10, 15, 0.4) 52%,
-            transparent 60%,
-            transparent 100%
-        );
-    pointer-events: none;
-}
-
-/* Dark overlay for better text readability */
+/* Subtle overlay for better text readability */
 .App::before {
     content: '';
     position: fixed;
@@ -88,7 +41,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 10, 15, 0.3);
+    background: rgba(5, 5, 10, 0.2);
     z-index: 0;
     pointer-events: none;
 }
@@ -101,12 +54,21 @@ body {
     overflow-x: hidden;
 }
 
-/* Glassmorphism Utility Class */
+/* Liquid Glass Utility Class */
 .glass {
-    background: rgba(17, 24, 39, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.02) 50%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Scrollbar Styling */
