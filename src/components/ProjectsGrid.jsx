@@ -18,7 +18,7 @@ const ProjectsGrid = () => {
             image: springerImg,
             techStack: ['📄', '🔬', '🎓', '🤖'],
             techNames: ['Research', 'ML', 'Education', 'AI'],
-            github: "https://www.springerprofessional.de/en/student-behavior-models-in-ill-structured-problem-solving-enviro/23307100",
+            github: "https://link.springer.com/chapter/10.1007/978-3-031-11644-5_46",
             featured: true
         },
         {
@@ -53,7 +53,7 @@ const ProjectsGrid = () => {
             image: movieImg,
             techStack: ['🐍', '🔬', '🐳'],
             techNames: ['Python', 'Scikit-learn', 'Docker'],
-            github: "https://github.com/Salmanshaikh3223/Movie-Recommendation-System"
+            github: "https://github.com/salmandshaikh/Movie-Recommendation-System"
         },
         {
             title: "GenAI Bot NLTK Toolkit",
@@ -86,14 +86,18 @@ const ProjectsGrid = () => {
 
             <div className="projects-grid">
                 {projects.map((project, index) => (
-                    <motion.div
+                    <motion.a
                         key={project.title}
+                        href={project.live || project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={`project-card glass ${project.featured ? 'featured' : ''}`}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.1 }}
                         whileHover={{ y: -5 }}
+                        style={{ textDecoration: 'none' }}
                     >
                         <div className="project-image-wrapper">
                             <img
@@ -126,34 +130,22 @@ const ProjectsGrid = () => {
                             <p className="project-description">{project.description}</p>
 
                             <div className="project-links">
-                                <motion.a
-                                    href={project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="project-link"
-                                    whileHover={{ x: 5 }}
-                                >
+                                <span className="project-link">
                                     <span>View Project</span>
                                     <span className="link-arrow">→</span>
-                                </motion.a>
+                                </span>
                                 {project.live && (
-                                    <motion.a
-                                        href={project.live}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="project-link live"
-                                        whileHover={{ x: 5 }}
-                                    >
+                                    <span className="project-link live">
                                         <span>Live Demo</span>
                                         <span className="link-arrow">→</span>
-                                    </motion.a>
+                                    </span>
                                 )}
                             </div>
                         </div>
 
                         {/* Animated border */}
                         <div className="card-border"></div>
-                    </motion.div>
+                    </motion.a>
                 ))}
             </div>
         </section>
